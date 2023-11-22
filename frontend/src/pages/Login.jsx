@@ -9,11 +9,14 @@ const Login = () => {
   const handleLogin = (credentialResponse) => {
     let decodedUser = jwtDecode(JSON.stringify(credentialResponse))
     console.log("Response:", credentialResponse)
-    console.log(decodedUser)
+    console.log("Sub: ", decodedUser.sub)
 
     // Make an Axios request to your Django endpoint
     axios.post('http://127.0.0.1:8000/api/login/', {
-      credential: credentialResponse.credential,
+      google_user_id: decodedUser.sub,
+      email: decodedUser.email,
+      picture: decodedUser.picture,
+      email_verified: decodedUser.email_verified
     })
     .then((response) => {
       console.log('Django Response:', response.data)
