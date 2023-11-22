@@ -17,7 +17,7 @@ class GoogleLoginView(APIView):
             serializer.is_valid(raise_exception=True)
 
             credential = serializer.data
-            
+
             email = credential['email']
             google_user_id = credential['google_user_id']
             picture = credential['picture']
