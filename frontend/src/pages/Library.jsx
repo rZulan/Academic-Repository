@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import axios from "axios";
+
+import API from "../utils/API";
 
 const Library = () => {
   const [documentType, setDocumentType] = useState({
@@ -21,7 +22,7 @@ const Library = () => {
 
   const getDocuments = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/documents/`);
+      const response = await API.get(`/documents/`);
       const fetchedDocuments = response.data;
       setDocuments(fetchedDocuments);
       setAllDocuments(fetchedDocuments); 
