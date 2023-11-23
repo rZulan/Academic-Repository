@@ -106,27 +106,13 @@ const Home = () => {
         </Slider>
       </section>
 
-      <section className="mt-8">
+      <section className="mt-8 mx-32">
         <h1 className="text-3xl font-semibold mb-4">What is DHVSU Repository?</h1>
         <p className="text-gray-600">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum facilis, ducimus hic
           architecto quam maiores itaque natus, voluptatem neque doloribus ab vitae aliquid sint
           perferendis saepe...
         </p>
-      </section>
-
-      <section className="mt-8">
-        <h1 className="text-3xl font-semibold mb-4">Contact Us</h1>
-        <ul className="list-disc pl-4">
-          <li>E-Mail: contact@dhvsu.edu.ph</li>
-          <li>Phone: (214) 9934-52345</li>
-          <li>
-            Messenger:{' '}
-            <a href="https://messenger.com" className="text-blue-500 hover:underline">
-              https://messenger.com/DHVSU-Admin
-            </a>
-          </li>
-        </ul>
       </section>
     </>
   )
