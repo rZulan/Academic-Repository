@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Library from './pages/Library';
 import Document from './pages/Document';
+import Submit from './pages/Upload';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/library' element={<Library />} />
+              <Route path='/upload' element={<Submit />} />
               <Route path='/document/:id' element={<Document />} />
             </Route>
           </Routes>

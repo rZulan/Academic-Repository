@@ -1,29 +1,59 @@
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../utils/AuthContext';
-import { useContext } from 'react';
+import '../css/header.css';
+import logo from '../assets/logo.png';
 
 const Header = () => {
-  const { user, logout } = useContext(AuthContext);
+  let { user, logoutUser } = useContext(AuthContext)
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
-    <header className="bg-blue-500 text-white py-4">
-      <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">DHVSU Repository</h1>
+    <header className={`header ${isMobileMenuOpen ? 'open' : ''}`}>
+      <div className="header-content">
+        <div className="logo-container">
+          <Link to="/">
+          <img src={logo} alt="DHVSU Archives Logo" className="logo-image" />
+          </Link>
+          <Link to="/">
+          <span className="logo-text hover:color-[#fbbf24]"><strong>REPOSITORY</strong></span>
+          </Link>
+        </div>
 
-        <nav className="space-x-4 flex items-center">
-          <Link to='/' className="text-white">Home</Link>
-          <Link to='/profile' className="text-white">Profile</Link>
-
-          {user ? (
-            <div className="flex items-center">
-              <Link onClick={logout} className="text-white">Logout</Link>
-              {user.picture && <img src={user.picture} alt="Profile" className="w-8 h-8 rounded-full ml-2" />}
-            </div>
-          ) : (
-            <Link to='/login' className="text-white">Login</Link>
-          )}
-        </nav>
+        {user && <p className='ml-8'>Welcome <u>{user.username}</u></p>}
+        <button
+          className={`mobile-menu-toggle ${isMobileMenuOpen ? 'open' : ''}`}
+          onClick={toggleMobileMenu}
+        >
+          <div className={`menu-icon ${isMobileMenuOpen ? 'open' : ''}`}>
+            <div className="bar"></div>
+            <div className="bar"></div>
+            <div className="bar"></div>
+          </div>
+        </button>
       </div>
+      <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
+        <Link to="/submit" className="nav-link">
+          Upload
+        </Link>
+        <Link to="/library" className="nav-link">
+          Browse
+        </Link>
+        <Link to="/profile" className="nav-link">
+          Profile
+        </Link>
+        <Link to="/login" className="nav-link">
+          Login
+        </Link>
+        {user && <p onClick={logoutUser} className="nav-link logout-link hover:cursor-pointer">Logout</p>}
+      </nav>
     </header>
   );
 };

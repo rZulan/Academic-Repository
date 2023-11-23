@@ -64,27 +64,34 @@ const Home = () => {
   return (
     <>
       <section className='flex flex-col items-center'>
+
+      <div className="text-center mb-20 mt-20">
+          <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Repository</h1>
+          <p className="text-2xl">Lorem ipsum nigga de guas alimunim boji mads</p>
+      </div>
+
       <form onSubmit={handleSubmit} className="my-4 flex items-center">
         <input
           type="text"
           name="search"
           value={formData.search}
           onChange={handleChange}
-          className="border p-3 rounded-l border-b w-64 focus:outline-none focus:ring focus:border-blue-300 flex-grow"
-          placeholder="Search..."
+          className="border border-gray-300 px-4 py-2 outline-none w-96 rounded-lg focus:outline-none focus:border-[#600414] transition duration-300 shadow-lg"
+          placeholder="Search Documents"
         />
         <button
           type="submit"
-          className="ml-2 bg-blue-500 text-white px-4 py-3 rounded-r hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+          className="bg-[#600414] hover:scale-110 transition ease-in-out duration-300 text-white rounded-md px-4 py-2 ml-2 shadow-lg"
         >
           Submit
         </button>
       </form>
 
-        <Link to="/library" className="ml-2 bg-orange-400 text-white px-4 py-3 rounded hover:bg-orange-500 focus:outline-none focus:ring focus:border-blue-300">
+        <Link to="/library" className="bg-[#600414] hover:scale-110 transition ease-in-out duration-300 text-white rounded-md px-4 py-2 ml-2 shadow-lg">
           Browse Documents
         </Link>
       </section>
+      
 
       <section className="mt-8 mx-32">
         <h1 className="text-3xl font-semibold mb-4">Featured Documents</h1>
