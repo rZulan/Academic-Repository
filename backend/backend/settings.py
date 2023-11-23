@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-ewgskg6spouukk$5=#&azcod7$94c*8_e+vkhk%i#cxuj9p3ji
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['academic-repository-api.onrender.com']
 
 
 # Application definition
