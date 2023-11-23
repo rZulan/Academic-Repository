@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
+import '../css/home.css'
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -52,15 +50,6 @@ const Home = () => {
     },
   ]
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    centerPadding: '30px'
-  }
-
   return (
     <>
       <section className='flex flex-col items-center'>
@@ -91,23 +80,25 @@ const Home = () => {
           Browse Documents
         </Link>
       </section>
-      
+
 
       <section className="mt-8 mx-32">
         <h1 className="text-3xl font-semibold mb-4">Featured Documents</h1>
-        <Slider {...settings}>
+        <div className="border-t-2 border-gray-300 my-4 mx-4"></div>
+        <div className="flex flex-wrap">
           {/* Featured Document Cards */}
           {featuredDocuments.map((document) => (
-            <div key={document.id} className="bg-orange-300 p-4 rounded shadow">
+            <div key={document.id} className="bg-white w-1/4 m-4 p-4 rounded shadow-lg">
               <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
               <p className="text-gray-600">{document.abstract}</p>
             </div>
           ))}
-        </Slider>
+        </div>
       </section>
 
       <section className="mt-8 mx-32">
         <h1 className="text-3xl font-semibold mb-4">What is DHVSU Repository?</h1>
+        <div className="border-t-2 border-gray-300 my-4"></div>
         <p className="text-gray-600">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum facilis, ducimus hic
           architecto quam maiores itaque natus, voluptatem neque doloribus ab vitae aliquid sint

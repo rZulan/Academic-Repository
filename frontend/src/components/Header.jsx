@@ -23,8 +23,7 @@ const Header = () => {
           <span className="logo-text hover:color-[#fbbf24]"><strong>REPOSITORY</strong></span>
           </Link>
         </div>
-
-        {user && <p className='ml-8'>Welcome <u>{user.username}</u></p>}
+        
         <button
           className={`mobile-menu-toggle ${isMobileMenuOpen ? 'open' : ''}`}
           onClick={toggleMobileMenu}
