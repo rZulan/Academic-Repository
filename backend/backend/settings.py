@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 
     'api',
     'authentication',
+    'library',
 ]
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
