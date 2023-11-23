@@ -11,7 +11,7 @@ class CustomUserManager(BaseUserManager):
         
         if password:
             user.set_password(password)
-        
+
         user.save(using=self._db)
         return user
 
@@ -25,7 +25,7 @@ class CustomUser(AbstractUser):
     email_verified = models.BooleanField(default=False)
     google_user_id = models.CharField(max_length=255, unique=True, null=True, blank=True)
     picture = models.URLField(blank=True, null=True)
-    
+
     username = None
 
     email = models.EmailField(unique=True)
