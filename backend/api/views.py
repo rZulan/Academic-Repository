@@ -13,31 +13,44 @@ class GoogleLoginView(APIView):
 
     def post(self, request):
         try:
-            serializer = UserSerializer(data=request.data)
-            serializer.is_valid(raise_exception=True)
-
-            credential = serializer.data
-
-            email = credential['email']
-            google_user_id = credential['google_user_id']
-            picture = credential['picture']
-            email_verified = credential['email_verified']
-
-            user = get_user_model().objects.filter(email=email).first()
-
-            if user:
-                refresh = RefreshToken.for_user(user)
-                access_token = str(refresh.access_token)
-                return Response({'access_token': access_token}, status=status.HTTP_200_OK)
-
-            user_serializer = UserSerializer(data={'email': email, 'google_user_id': google_user_id, 'picture': picture, 'email_verified': email_verified})
-            user_serializer.is_valid(raise_exception=True)
-            user = user_serializer.save()
-
+            email = request.data.get('email')
+            user = get_user_model().objects.get(email=email)
             refresh = RefreshToken.for_user(user)
-            access_token = str(refresh.access_token)
-            return Response({'access_token': access_token}, status=status.HTTP_201_CREATED)
 
-        except Exception as e:
-            print(e)
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            refresh['email'] = user.email
+            refresh['first_name'] = user.first_name
+            refresh['last_name'] = user.last_name
+            refresh['picture'] = user.picture
+
+            access_token = str(refresh.access_token)
+
+            response = Response({'access_token': access_token}, status=status.HTTP_200_OK)
+
+        except get_user_model().DoesNotExist:
+            credential = request.data
+            data = {
+                'email': credential['email'],
+                'google_user_id': credential['google_user_id'],
+                'picture': credential['picture'],
+                'email_verified': credential['email_verified'],
+                'first_name': credential['first_name'],
+                'last_name': credential['last_name'],
+            }
+            
+            serializer = UserSerializer(data=data)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+            refresh = RefreshToken.for_user(serializer.instance)
+            refresh['email'] = serializer.instance.email
+            refresh['first_name'] = serializer.instance.first_name
+            refresh['last_name'] = serializer.instance.last_name
+            refresh['picture'] = serializer.instance.picture
+            
+            access_token = str(refresh.access_token)
+
+            response = Response({'access_token': access_token}, status=status.HTTP_201_CREATED)
+
+        response.set_cookie(key='access_token', value=access_token, httponly=True)
+
+        return response
