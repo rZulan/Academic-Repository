@@ -8,6 +8,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Library from './pages/Library';
+import Document from './pages/Document';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/library' element={<Library />} />
+              <Route path='/document/:id' element={<Document />} />
             </Route>
           </Routes>
         </AuthProvider>
