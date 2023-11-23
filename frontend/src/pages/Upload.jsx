@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
-import axios from "axios";
+import API from "../utils/API";
 
 const Submit = () => {
   const [formData, setFormData] = useState({
@@ -133,8 +133,8 @@ const Submit = () => {
     console.log("Data to Submit:", dataToSubmit);
 
     // Send data to the server
-    axios
-      .post("http://127.0.0.1:8000/api/submit/", dataToSubmit)
+    API
+      .post("/submit/", dataToSubmit)
       .then((response) => {
         console.log("Document submitted successfully:", response.data);
         setFormData({
@@ -171,8 +171,8 @@ const Submit = () => {
       verified: true,
     });
 
-    axios
-      .post("http://127.0.0.1:8000/api/section/", {
+    API
+      .post("/section/", {
         content: formData.sections.content,
       })
       .then((response) => {

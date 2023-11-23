@@ -5,7 +5,7 @@ import '../css/header.css';
 import logo from '../assets/logo.png';
 
 const Header = () => {
-  let { user, logoutUser } = useContext(AuthContext)
+  let { user, logout } = useContext(AuthContext)
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -49,10 +49,15 @@ const Header = () => {
         <Link to="/profile" className="nav-link">
           Profile
         </Link>
-        <Link to="/login" className="nav-link">
-          Login
-        </Link>
-        {user && <p onClick={logoutUser} className="nav-link logout-link hover:cursor-pointer">Logout</p>}
+        {
+          user ? (
+            <p onClick={logout} className="nav-link logout-link hover:cursor-pointer">Logout</p>
+          ) : (
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+          )
+        }
       </nav>
     </header>
   );

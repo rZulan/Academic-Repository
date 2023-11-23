@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
+import AuthContext from '../utils/AuthContext';
 
 const Profile = () => {
-  const [user] = useState({
-    username: 'John Doe',
-    email: 'johndoe@example.com',
-    bio: 'Enthusiastic learner and tech enthusiast. Passionate about new technologies and software development.',
-    profilePic: 'https://via.placeholder.com/150',
-  });
+  const { user } = useContext(AuthContext)
+  
+  // const [user] = useState({
+  //   username: 'John Doe',
+  //   email: 'johndoe@example.com',
+  //   bio: 'Enthusiastic learner and tech enthusiast. Passionate about new technologies and software development.',
+  //   profilePic: 'https://via.placeholder.com/150',
+  // });
 
   const [uploadedDocuments] = useState([
     { title: 'Understanding React Hooks', date: '2023-01-01' },
@@ -38,7 +42,7 @@ const Profile = () => {
           <div className="md:w-1/4 p-8">
             <div className="text-center mb-6">
               <img
-                src={user.profilePic}
+                src={user.picture}
                 alt="Profile"
                 className="rounded-full w-32 h-32 mb-4 mx-auto border-4 border-[#600414]"
               />
@@ -49,7 +53,7 @@ const Profile = () => {
               </button>
             </div>
             <div>
-              <p className="text-black text-sm">{user.bio}</p>
+              <p className="text-black text-sm">Enthusiastic learner and tech enthusiast. Passionate about new technologies and software development.</p>
             </div>
           </div>
           <div className="md:w-3/4 p-8">
