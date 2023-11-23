@@ -11,6 +11,7 @@ export default AuthContext
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
@@ -18,44 +19,51 @@ export const AuthProvider = ({ children }) => {
       setUser(JSON.parse(storedUser))
     }
   }, [])
-  
-  const login = (credentialResponse) => {
-    let decodedUser = jwtDecode(JSON.stringify(credentialResponse))
-    
-    const firstName = decodedUser.given_name || ' '
-    const lastName = decodedUser.family_name || ' '
 
-    API.post('/login/', {
-      google_user_id: decodedUser.sub,
-      email: decodedUser.email,
-      picture: decodedUser.picture,
-      email_verified: decodedUser.email_verified,
-      first_name: firstName,
-      last_name: lastName,
-    })
-    .then((response) => {
+  const setAuthLoading = (status) => {
+    setLoading(status)
+  }
+
+  const login = async (credentialResponse) => {
+    setAuthLoading(true)
+
+    try {
+      let decodedUser = jwtDecode(JSON.stringify(credentialResponse))
+
+      const firstName = decodedUser.given_name || ' '
+      const lastName = decodedUser.family_name || ' '
+
+      const response = await API.post('/login/', {
+        google_user_id: decodedUser.sub,
+        email: decodedUser.email,
+        picture: decodedUser.picture,
+        email_verified: decodedUser.email_verified,
+        first_name: firstName,
+        last_name: lastName,
+      })
+
       let backendUser = jwtDecode(JSON.stringify(response.data))
 
       setUser(backendUser)
-      
       localStorage.setItem('user', JSON.stringify(backendUser))
-      
+
       navigate('/')
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error('Axios Error:', error)
-    })
+    } finally {
+      setAuthLoading(false)
+    }
   }
 
   const logout = () => {
     localStorage.removeItem('user')
-
+  
     setUser(null)
     navigate('/login')
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   )

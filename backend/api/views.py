@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from django.contrib.auth import authenticate, get_user_model
+from django.contrib.auth import get_user_model
 from authentication.serializers import UserSerializer
 
 class GoogleLoginView(APIView):
@@ -21,6 +21,7 @@ class GoogleLoginView(APIView):
             refresh['first_name'] = user.first_name
             refresh['last_name'] = user.last_name
             refresh['picture'] = user.picture
+            refresh['is_staff'] = user.is_staff
 
             access_token = str(refresh.access_token)
 
@@ -36,7 +37,7 @@ class GoogleLoginView(APIView):
                 'first_name': credential['first_name'],
                 'last_name': credential['last_name'],
             }
-            
+
             serializer = UserSerializer(data=data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
@@ -46,7 +47,8 @@ class GoogleLoginView(APIView):
             refresh['first_name'] = serializer.instance.first_name
             refresh['last_name'] = serializer.instance.last_name
             refresh['picture'] = serializer.instance.picture
-            
+            refresh['is_staff'] = False
+
             access_token = str(refresh.access_token)
 
             response = Response({'access_token': access_token}, status=status.HTTP_201_CREATED)

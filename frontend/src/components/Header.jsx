@@ -8,6 +8,7 @@ const Header = () => {
   return (
     <>
     <Link to='/'>Home</Link>
+    <Link to='/profile'>Profile</Link>
     {
       user ? (
         <Link onClick={logout}>Logout</Link>
@@ -15,8 +16,6 @@ const Header = () => {
         <Link to='/login'>Login</Link>
       )
     }
-    
-    <Link to='/profile'>Profile</Link>
     </>
   )
 }

@@ -7,6 +7,7 @@ import DefaultRoutes from './utils/DefaultRoutes'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
+import Library from './pages/Library';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route element={<DefaultRoutes />}>
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/library' element={<Library />} />
             </Route>
           </Routes>
         </AuthProvider>
