@@ -1,6 +1,8 @@
+
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import API from "../utils/API";
+import '../css/library.css';
 
 const Library = () => {
   const [documentType, setDocumentType] = useState({
@@ -113,7 +115,10 @@ const Library = () => {
   };
 
   return (
-    <div className="main-body bg-[#F6F6F6] p-7 h-auto">
+    <div className="main-body bg-[#F6F6F6] mt-5 p-7 h-auto">
+      <div className="flex justify-center text-4xl mb-5 text-[#600414]">
+        <strong>Browse Documents</strong>
+      </div>
       <div className="flex flex-wrap -mx-4">
         <div className="w-full md:w-[15%] p-10 rounded-md shadow-lg border-2 hover:border-[#600414] transition duration-300 border-gray-300 bg-white h-[50%] ml-10 m-3">
           <h2 className="text-2xl font-bold mb-6">Filter</h2>
@@ -216,6 +221,8 @@ const Library = () => {
           <div className="flex">
             <input
               type="text"
+
+
               placeholder="Search Document"
               value={searchQuery}
               onChange={handleSearchChange}
