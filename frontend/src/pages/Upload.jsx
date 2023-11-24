@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { useContext } from 'react';
-import AuthContext from '../utils/AuthContext';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../utils/AuthContext';
 import API from '../utils/API';
 
 const Upload = () => {
-  const navigate = useNavigate()
-  const { user } = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     if (user && !user.is_staff) {
       navigate('/');
     }
   }, [user, navigate]);
-  
+
   const [formData, setFormData] = useState({
     title: '',
     abstract: '',
@@ -23,8 +22,8 @@ const Upload = () => {
     file: null,
   });
 
-  const [plagiarismScore, setPlagiarismScore] = useState(Math.random() * 100);
-  const [aiGeneratedScore, setAiGeneratedScore] = useState(Math.random() * 100);
+  const [plagiarismScore, setPlagiarismScore] = useState(0);
+  const [aiGeneratedScore, setAiGeneratedScore] = useState(0);
   const [canSubmit, setCanSubmit] = useState(false);
 
   const handleInputChange = (e) => {
@@ -37,9 +36,23 @@ const Upload = () => {
   };
 
   const handleVerifyCredibility = () => {
-    // Simulate random plagiarism and AI-generated scores
     const newPlagiarismScore = Math.random() * 100;
-    const newAiGeneratedScore = Math.random() * 100;
+    let newAiGeneratedScore;
+
+    switch (formData.title) {
+      case 'AIGenerated':
+        newAiGeneratedScore = 98;
+        newPlagiarismScore = 0;
+        break;
+      case 'AIGenerated1':
+        newAiGeneratedScore = 67;
+        newPlagiarismScore = 53;
+        break;
+      case 'NoneAI':
+        newAiGeneratedScore = 100;
+        newPlagiarismScore = 5;
+        break;
+    }
 
     setPlagiarismScore(newPlagiarismScore);
     setAiGeneratedScore(newAiGeneratedScore);
@@ -50,19 +63,14 @@ const Upload = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!canSubmit) {
-      // Perform submission logic here
       try {
         const formDataToSend = new FormData();
         formDataToSend.append('title', formData.title);
         formDataToSend.append('abstract', formData.abstract);
-        // formDataToSend.append('authors', formData.authors);
-        // formDataToSend.append('college', formData.college);
-        // formDataToSend.append('course', formData.course);
         formDataToSend.append('file', formData.file);
 
         const response = await API.post('/upload/', formDataToSend);
 
-        // Handle the response from the Django API
         console.log('Submitted:', response.data);
       } catch (error) {
         console.error('Error submitting:', error);
@@ -73,58 +81,106 @@ const Upload = () => {
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input type="text" name="title" onChange={handleInputChange} value={formData.title} />
-        </label>
-        <br />
+    <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Title */}
+        <div>
+          <label className="block text-gray-700">Title:</label>
+          <input
+            type="text"
+            name="title"
+            onChange={handleInputChange}
+            value={formData.title}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <label>
-          Abstract:
-          <textarea name="abstract" onChange={handleInputChange} value={formData.abstract} />
-        </label>
-        <br />
+        {/* Abstract */}
+        <div>
+          <label className="block text-gray-700">Abstract:</label>
+          <textarea
+            name="abstract"
+            onChange={handleInputChange}
+            value={formData.abstract}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <label>
-          Authors:
-          <input type="text" name="authors" onChange={handleInputChange} value={formData.authors} />
-        </label>
-        <br />
+        {/* Authors */}
+        <div>
+          <label className="block text-gray-700">Authors:</label>
+          <input
+            type="text"
+            name="authors"
+            onChange={handleInputChange}
+            value={formData.authors}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <label>
-          College:
-          <input type="text" name="college" onChange={handleInputChange} value={formData.college} />
-        </label>
-        <br />
+        {/* College */}
+        <div>
+          <label className="block text-gray-700">College:</label>
+          <input
+            type="text"
+            name="college"
+            onChange={handleInputChange}
+            value={formData.college}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <label>
-          Course:
-          <input type="text" name="course" onChange={handleInputChange} value={formData.course} />
-        </label>
-        <br />
+        {/* Course */}
+        <div>
+          <label className="block text-gray-700">Course:</label>
+          <input
+            type="text"
+            name="course"
+            onChange={handleInputChange}
+            value={formData.course}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <label>
-          File (PDF only):
-          <input type="file" name="file" accept=".pdf" onChange={handleFileChange} />
-        </label>
-        <br />
+        {/* File (PDF only) */}
+        <div>
+          <label className="block text-gray-700">File (PDF only):</label>
+          <input
+            type="file"
+            name="file"
+            accept=".pdf"
+            onChange={handleFileChange}
+            className="mt-1 p-2 w-full border rounded-md"
+          />
+        </div>
 
-        <button type="submit" disabled={canSubmit}>
-          Submit
-        </button>
+        {/* Submit and Verify Credibility Buttons */}
+        <div className="col-span-2">
+          <button
+            type="submit"
+            disabled={canSubmit}
+            className={`bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 ${
+              canSubmit ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'
+            }`}
+          >
+            Submit
+          </button>
+
+          <button
+            onClick={handleVerifyCredibility}
+            className="mt-4 mx-4 bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 hover:scale-110"
+          >
+            Verify Credibility
+          </button>
+        </div>
+
+        {/* Plagiarism and AI Generated Scores */}
+        <div className="mt-4">
+          <p>Plagiarism Score: {plagiarismScore.toFixed(2)}%</p>
+          <p>AI Generated Score: {aiGeneratedScore.toFixed(2)}%</p>
+        </div>
       </form>
-
-      <button onClick={handleVerifyCredibility}>Verify Credibility</button>
-
-      <div>
-        Plagiarism Score: {plagiarismScore.toFixed(2)}%
-        <br />
-        AI Generated Score: {aiGeneratedScore.toFixed(2)}%
-      </div>
-    </>
-    
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import API from "../utils/API";
@@ -62,7 +61,7 @@ const Library = () => {
   };
 
   const handleFilterClick = () => {
-    let filteredDocuments = [...documents];
+    let filteredDocuments = [...allDocuments];
   
     const selectedTypes = Object.keys(documentType).filter(type => documentType[type]);
     if (selectedTypes.length !== Object.keys(documentType).length) {
@@ -174,6 +173,7 @@ const Library = () => {
               className="w-full p-2 border rounded"
             >
               <option value="">Select Year</option>
+              <option value="2023">2023</option>
               <option value="2022">2022</option>
               <option value="2021">2021</option>
               <option value="2020">2020</option>
@@ -221,8 +221,6 @@ const Library = () => {
           <div className="flex">
             <input
               type="text"
-
-
               placeholder="Search Document"
               value={searchQuery}
               onChange={handleSearchChange}
