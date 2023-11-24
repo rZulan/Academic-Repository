@@ -8,6 +8,7 @@ from django.contrib.auth import get_user_model
 from authentication.serializers import UserSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from library.serializers import DocumentSerializer
+from library.models import Document
 
 class GoogleLoginView(APIView):
     permission_classes = []
@@ -70,3 +71,9 @@ class UploadDocumentAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class DocumentsView(APIView):
+    def get(self, request):
+        data = Document.objects.all()
+        serializer = DocumentSerializer(data, many=True)
+        return Response(serializer.data)

@@ -148,7 +148,7 @@ const Upload = () => {
           <input
             type="file"
             name="file"
-            accept=".pdf"
+            accept=".pdf, .docx"
             onChange={handleFileChange}
             className="mt-1 p-2 w-full border rounded-md"
           />
