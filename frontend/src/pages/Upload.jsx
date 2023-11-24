@@ -36,8 +36,8 @@ const Upload = () => {
   };
 
   const handleVerifyCredibility = () => {
-    const newPlagiarismScore = Math.random() * 100;
     let newAiGeneratedScore;
+    let newPlagiarismScore;
 
     switch (formData.title) {
       case 'AIGenerated':
@@ -49,8 +49,8 @@ const Upload = () => {
         newPlagiarismScore = 53;
         break;
       case 'NoneAI':
-        newAiGeneratedScore = 100;
-        newPlagiarismScore = 5;
+        newAiGeneratedScore = 0;
+        newPlagiarismScore = 7.3;
         break;
     }
 
