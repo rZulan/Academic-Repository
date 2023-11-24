@@ -39,18 +39,27 @@ const Header = () => {
         <Link to="/" className="nav-link">
           Home
         </Link>
-        <Link to="/submit" className="nav-link">
-          Upload
-        </Link>
+        {
+          user && user.is_staff === true && (
+            <Link to="/upload" className="nav-link">
+              Upload
+            </Link>
+          )
+        }
+        
         <Link to="/library" className="nav-link">
           Browse
         </Link>
-        <Link to="/profile" className="nav-link">
-          Profile
-        </Link>
+        
         {
           user ? (
+            <>
+            <Link to="/profile" className="nav-link">
+              Profile
+            </Link>
             <p onClick={logout} className="nav-link logout-link hover:cursor-pointer">Logout</p>
+            </>
+            
           ) : (
             <Link to="/login" className="nav-link">
               Login
