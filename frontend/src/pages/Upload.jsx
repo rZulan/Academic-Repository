@@ -107,7 +107,7 @@ const Upload = () => {
 
         <label>
           File (PDF only):
-          <input type="file" name="file" accept=".pdf" onChange={handleFileChange} />
+          <input type="file" name="file" accept=".pdf, .docx" onChange={handleFileChange} />
         </label>
         <br />
 
