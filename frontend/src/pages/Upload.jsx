@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useContext } from 'react';
+import AuthContext from '../utils/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Upload = () => {
+  const navigate = useNavigate()
+  const { user } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (user && !user.is_staff) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   
   const [formData, setFormData] = useState({
     title: '',
