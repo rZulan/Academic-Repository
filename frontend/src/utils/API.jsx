@@ -1,6 +1,6 @@
 import axios from "axios"
 
 const API = axios.create({
-  baseURL: 'https://dhvsu-archives.site/api'})
+  baseURL: 'https://academic-repository-api.onrender.com/api'})
 
 export default API
