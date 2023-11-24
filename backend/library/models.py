@@ -82,9 +82,6 @@ class Document(models.Model):
         default=timezone.now().year,
         validators=[MinLengthValidator(limit_value=4)],
     )
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, null=True)
-    authors = models.ManyToManyField(Author)
-    sections = models.ManyToManyField(DocumentSection)
 
     file = models.FileField(upload_to='documents/')
 

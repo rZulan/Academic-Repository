@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useContext } from 'react';
 import AuthContext from '../utils/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import API from '../utils/API';
 
 const Upload = () => {
   const navigate = useNavigate()
@@ -46,11 +47,26 @@ const Upload = () => {
     setCanSubmit(newPlagiarismScore <= 50 && newAiGeneratedScore <= 50);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!canSubmit) {
-      // Perform submission logic here, e.g., send data to a server
-      console.log('Submitted:', formData);
+      // Perform submission logic here
+      try {
+        const formDataToSend = new FormData();
+        formDataToSend.append('title', formData.title);
+        formDataToSend.append('abstract', formData.abstract);
+        // formDataToSend.append('authors', formData.authors);
+        // formDataToSend.append('college', formData.college);
+        // formDataToSend.append('course', formData.course);
+        formDataToSend.append('file', formData.file);
+
+        const response = await API.post('/upload/', formDataToSend);
+
+        // Handle the response from the Django API
+        console.log('Submitted:', response.data);
+      } catch (error) {
+        console.error('Error submitting:', error);
+      }
     } else {
       console.log('Cannot submit. Verify credibility first.');
     }
