@@ -58,23 +58,7 @@ const Profile = () => {
           </div>
           <div className="md:w-3/4 p-8">
             <div className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">Uploaded Documents</h2>
-              <ul className="list-disc pl-5">
-                {uploadedDocuments.map((doc, index) => (
-                  <li key={index} className="mb-2 text-gray-800 flex justify-between items-center">
-                    <span>{doc.title}</span>
-                    {favorites.includes(doc.title) ? (
-                      <span className="text-[#600414]">Bookmarked</span>
-                    ) : (
-                      <button
-                        className="bg-[#600414] hover:bg-[#ffbc2c] text-white font-semibold py-1 px-2 rounded"
-                      >
-                        View
-                      </button>
-                    )}
-                  </li>
-                ))}
-              </ul>
+
             </div>
             <div>
               <h2 className="text-2xl font-semibold mb-4 border-b-2 pb-2">Favorites/Bookmarks</h2>

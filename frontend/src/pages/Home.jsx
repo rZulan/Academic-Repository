@@ -56,7 +56,7 @@ const Home = () => {
 
       <div className="text-center mb-20 mt-20">
           <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Repository</h1>
-          <p className="text-2xl">Lorem ipsum nigga de guas alimunim boji mads</p>
+          <p className="text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius</p>
       </div>
 
       <form onSubmit={handleSubmit} className="my-4 flex items-center">

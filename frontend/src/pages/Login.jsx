@@ -32,18 +32,18 @@ const Login = () => {
           <div className="flex items-center justify-center mt-5 mb-2">
 
 
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <GoogleLogin
-          onSuccess={(credentialResponse) => login(credentialResponse)}
-          onError={() => {
-            console.log('Login Failed');
-          }}
-        />
-      )}
+                {loading ? (
+                  <p>Logging in...</p>
+                ) : (
+                  <GoogleLogin
+                    onSuccess={(credentialResponse) => login(credentialResponse)}
+                    onError={() => {
+                      console.log('Login Failed');
+                    }}
+                  />
+                )}
 
-</div>
+          </div>
         </div>
       </div>
   );
