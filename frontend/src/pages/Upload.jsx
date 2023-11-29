@@ -52,6 +52,11 @@ const Upload = () => {
         newAiGeneratedScore = 0;
         newPlagiarismScore = 7.3;
         break;
+
+      default:
+        newAiGeneratedScore = 51;
+        newPlagiarismScore = 51;
+        break;
     }
 
     setPlagiarismScore(newPlagiarismScore);
