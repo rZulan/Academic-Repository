@@ -105,7 +105,7 @@ const Upload3 = () => {
     switch (step) {
       case 1:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
             <h1 className="text-2xl mb-4">Step 1</h1>
             <form>
               <div className="mb-4">
@@ -275,7 +275,7 @@ const Upload3 = () => {
         );
       case 2:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
             <h1 className="text-2xl mb-4">Step 2</h1>
             <button
               onClick={handleAICheck}
@@ -301,7 +301,7 @@ const Upload3 = () => {
         );
       case 3:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
             <h1 className="text-2xl mb-4">Step 3</h1>
             <button
               onClick={handlePlagiarismCheck}
@@ -327,7 +327,7 @@ const Upload3 = () => {
         );
       case 4:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
+          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
             <h1 className="text-2xl mb-4">Summary</h1>
             <div className="flex justify-center mt-4">
               <button

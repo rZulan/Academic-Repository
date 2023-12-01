@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import API from "../utils/API";
-import './library.css';
 
 const Library = () => {
   const [documentType, setDocumentType] = useState({
