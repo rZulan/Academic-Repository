@@ -113,8 +113,8 @@ const Library = () => {
   };
 
   return (
-    <div className="main-body bg-[#F6F6F6] p-7 h-auto">
-      <div className="flex flex-wrap -mx-4">
+    <div className="main-body bg-[#F6F6F6] p-7 h-auto mt-0">
+      <div className="flex flex-wrap mx-4">
         <div className="w-full md:w-[15%] p-10 rounded-md shadow-lg bg-white h-[50%] ml-10 m-3">
           <h2 className="text-2xl font-bold mb-6">Filter</h2>
           <div className="mb-4">

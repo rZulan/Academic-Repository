@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import '../css/home.css';
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -55,7 +54,7 @@ const Home = () => {
       <section className='flex flex-col items-center'>
         <div className="text-center mb-20 mt-20">
           <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Repository</h1>
-          <p className="text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius</p>
+          <p className="text-2xl">Your Gateway to Academic Excellence – Where Ideas Thrive and Originality Shines!</p>
         </div>
 
         <form onSubmit={handleSubmit} className="my-4 flex items-center">
@@ -80,12 +79,12 @@ const Home = () => {
         </Link>
       </section>
 
-      <section className="mt-8 mx-32">
+      <section className="mt-8 mx-8 lg:mx-32">
         <h1 className="text-3xl font-semibold mb-4">Featured Documents</h1>
         <div className="border-t-2 border-gray-300 my-4 mx-3"></div>
-        <div className="flex flex-wrap">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
           {featuredDocuments.map((document) => (
-            <div key={document.id} className="bg-white w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 m-4 p-4 rounded shadow-lg hover:shadow-xl transition duration-300">
+            <div key={document.id} className="bg-white p-4 rounded shadow-lg hover:shadow-xl hover:scale-105 transition duration-300">
               <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
               <p className="text-gray-600">{document.abstract}</p>
             </div>
@@ -93,13 +92,13 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="mt-8 mx-32">
+      <section className="mt-8 mx-8 lg:mx-32">
         <h1 className="text-3xl font-semibold mb-4">What is DHVSU Repository?</h1>
         <div className="border-t-2 border-gray-300 my-4"></div>
         <p className="text-gray-600">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum facilis, ducimus hic
-          architecto quam maiores itaque natus, voluptatem neque doloribus ab vitae aliquid sint
-          perferendis saepe...
+        The DHVSU Repository is a comprehensive and innovative platform designed to serve as a centralized hub for academic research and scholarly work,
+         specifically focusing on the storage and dissemination of theses, capstone projects, and dissertations. This repository is a powerful resource
+          for students, faculty, and researchers affiliated with DHVSU (Don Honorio Ventura State University) and beyond.
         </p>
       </section>
     </>

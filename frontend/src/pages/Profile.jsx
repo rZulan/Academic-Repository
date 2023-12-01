@@ -36,7 +36,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=" mt-5">
+    <div className=" mt-5 p-3">
       <div className="container mx-auto bg-white shadow-md rounded-lg overflow-hidden">
         <div className="md:flex">
           <div className="md:w-1/4 p-8">

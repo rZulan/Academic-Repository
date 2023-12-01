@@ -20,7 +20,7 @@ const Login = () => {
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
         <div className="flex items-center justify-center mb-4">
             <img src={logo} alt="Logo" className="w-12 h-12 mr-2" />
-            <h1 className="text-2xl font-bold" style={{ color: '#600414' }}>DHVSU ARCHIVES</h1>
+            <h1 className="text-2xl font-bold" style={{ color: '#600414' }}>DHVSU REPOSITORY</h1>
           </div>
 
           <div className="flex items-center justify-center mt-5 mb-2">
