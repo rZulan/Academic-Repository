@@ -98,7 +98,7 @@ const Home = () => {
         <p className="text-gray-600">
         The DHVSU Repository is a comprehensive and innovative platform designed to serve as a centralized hub for academic research and scholarly work,
          specifically focusing on the storage and dissemination of theses, capstone projects, and dissertations. This repository is a powerful resource
-          for students, faculty, and researchers affiliated with DHVSU (Don Honorio Ventura State University) and beyond.
+          for students, and faculty in DHVSU (Don Honorio Ventura State University).
         </p>
       </section>
     </>

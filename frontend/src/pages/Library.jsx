@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import API from "../utils/API";
+import './library.css';
 
 const Library = () => {
   const [documentType, setDocumentType] = useState({
@@ -113,9 +114,10 @@ const Library = () => {
   };
 
   return (
+    
     <div className="main-body bg-[#F6F6F6] p-7 h-auto mt-0">
       <div className="flex flex-wrap mx-4">
-        <div className="w-full md:w-[15%] p-10 rounded-md shadow-lg bg-white h-[50%] ml-10 m-3">
+      <div className="w-full lg:w-[15%] md:w-[25%] p-10 rounded-md shadow-lg bg-white h-auto ml-10 m-3">
           <h2 className="text-2xl font-bold mb-6">Filter</h2>
           <div className="mb-4">
             <h3 className="font-semibold">Document Type:</h3>

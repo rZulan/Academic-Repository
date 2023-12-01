@@ -1,0 +1,11 @@
+@media screen and (max-width: 768px) {
+    .flex-wrap {
+      flex-direction: column;
+    }
+  
+    .main-body .flex-wrap > div {
+      width: 100% !important;
+      margin-left: 0 !important;
+    }
+  }
+  
