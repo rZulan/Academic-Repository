@@ -10,6 +10,8 @@ import Profile from './pages/Profile'
 import Library from './pages/Library';
 import Document from './pages/Document';
 import Upload from './pages/Upload';
+import Upload2 from './pages/Upload2';
+import Upload3 from './pages/Upload3';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
               <Route path='/profile' element={<Profile />} />
               <Route path='/library' element={<Library />} />
               <Route path='/upload' element={<Upload />} />
+              <Route path='/upload2' element={<Upload2 />} />
+              <Route path='/upload3' element={<Upload3 />} />
               <Route path='/document/:id' element={<Document />} />
             </Route>
           </Routes>
