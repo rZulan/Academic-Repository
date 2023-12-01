@@ -1,4 +1,3 @@
-from django.conf import settings
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -6,9 +5,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from django.contrib.auth import get_user_model
 from authentication.serializers import UserSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, FileUploadParser
 from library.serializers import DocumentSerializer
 from library.models import Document
+
+import json
+import requests
+
+from pypdf import PdfReader
 
 class GoogleLoginView(APIView):
     permission_classes = []
@@ -77,3 +81,29 @@ class DocumentsView(APIView):
         data = Document.objects.all()
         serializer = DocumentSerializer(data, many=True)
         return Response(serializer.data)
+
+
+class CleanupView(APIView):
+    parser_classes = [MultiPartParser, FileUploadParser]
+
+    def post(self, request):
+        file_obj = request.data.get('file')
+
+        # headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYWYwYzNjN2QtODE3Ny00YWE3LTlmNTctZmM5ZGNjYWQ0ZDkzIiwidHlwZSI6ImFwaV90b2tlbiJ9.vQRpYvpAxrrfZvHOI4gicG8pN2O1X0pptOL51JcBRF0"}
+        full_text = ''
+        
+        reader = PdfReader(file_obj)
+        for i in range(len(reader.pages)):
+            page = reader.pages[i]
+            full_text += page.extract_text()
+        
+        # url = "https://api.edenai.run/v2/text/ai_detection"
+        # payload = {
+        #     "providers": "originalityai",
+        #     "text": full_text,
+        #     "fallback_providers": ""
+        # }
+
+        # response = requests.post(url, json=payload, headers=headers)
+        
+        return Response({"ConvertedText" : full_text})
