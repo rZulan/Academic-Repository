@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API from '../utils/API';
 
 const Upload3 = () => {
   const [step, setStep] = useState(1);
   const [file, setFile] = useState(null);
+  const [aiScore, setAIScore] = useState(0.0)
+  const [plagScore, setPlagScore] = useState(0.0)
   const [convertedText, setConvertedText] = useState('');
   const [formData, setFormData] = useState({
     title: '',
@@ -25,7 +28,7 @@ const Upload3 = () => {
       formData.append('file', file);
 
       // Your API endpoint for file upload (replace with your actual endpoint)
-      const response = await axios.post('/upload/', formData);
+      const response = await API.post('/cleanup/', formData);
 
       setConvertedText(response.data.ConvertedText);
     } catch (e) {
@@ -49,12 +52,14 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer YOUR_AI_DETECTION_API_KEY',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmJhZWQyMGItYjZiMy00YmFmLWFlYWItMjZhNDk3ZTFlYWE3IiwidHlwZSI6InNhbmRib3hfYXBpX3Rva2VuIn0.65eR0XPWFINLsbxTXFPupTWk7C61l_E0FcZlyi28ZQE',
           },
         }
       );
 
       console.log('AI Detection Score:', aiResponse.data);
+      setAIScore(aiResponse.data.sapling.ai_score)
+      console.log(aiResponse.data.sapling.ai_score)
     } catch (error) {
       console.error('Error submitting:', error);
     }
@@ -77,12 +82,14 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer YOUR_PLAGIARISM_DETECTION_API_KEY',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmJhZWQyMGItYjZiMy00YmFmLWFlYWItMjZhNDk3ZTFlYWE3IiwidHlwZSI6InNhbmRib3hfYXBpX3Rva2VuIn0.65eR0XPWFINLsbxTXFPupTWk7C61l_E0FcZlyi28ZQE',
           },
         }
       );
 
       console.log('Plagiarism Detection Score:', plagiaResponse.data);
+      setPlagScore(plagiaResponse.data.winstonai.plagia_score)
+
     } catch (error) {
       console.error('Error submitting:', error);
     }
@@ -287,69 +294,76 @@ const Upload3 = () => {
         );
       case 2:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
-            <h1 className="text-2xl mb-4">Step 2</h1>
-            <button
-              onClick={handleAICheck}
-              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-            >
-              AI Check
-            </button>
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={handlePreviousStep}
-                className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Previous
-              </button>
-              <button
-                onClick={handleNextStep}
-                className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Next
-              </button>
-            </div>
-          </div>
+<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+  <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
+  <h3 className="text-lg mb-2">AI Score:</h3>
+  <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
+  <button
+    onClick={handleAICheck}
+    className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+  >
+    AI Check
+  </button>
+  <div className="flex justify-between mt-4">
+    <button
+      onClick={handlePreviousStep}
+      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+    >
+      Previous
+    </button>
+    <button
+      onClick={handleNextStep}
+      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
         );
       case 3:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
-            <h1 className="text-2xl mb-4">Step 3</h1>
-            <button
-              onClick={handlePlagiarismCheck}
-              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-            >
-              Plagiarism Check
-            </button>
-            <div className="flex justify-between mt-4">
-              <button
-                onClick={handlePreviousStep}
-                className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Previous
-              </button>
-              <button
-                onClick={handleNextStep}
-                className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Next
-              </button>
-            </div>
-          </div>
+<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+  <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
+  <h3 className="text-lg mb-2">Plagiarism Score:</h3>
+  <p className="text-4xl font-bold">{(plagScore * 100).toFixed(2)}%</p>
+  <button
+    onClick={handlePlagiarismCheck}
+    className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+  >
+    Plagiarism Check
+  </button>
+  <div className="flex justify-between mt-4">
+    <button
+      onClick={handlePreviousStep}
+      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+    >
+      Previous
+    </button>
+    <button
+      onClick={handleNextStep}
+      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
         );
       case 4:
         return (
-          <div className="container mx-auto my-10 p-6 bg-white rounded-lg shadow-lg w-[65%]">
-            <h1 className="text-2xl mb-4">Summary</h1>
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={handlePreviousStep}
-                className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Previous
-              </button>
-            </div>
-          </div>
+<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+  <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
+  <div className="flex justify-center mt-4">
+    <button
+      onClick={handlePreviousStep}
+      className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+    >
+      Previous
+    </button>
+  </div>
+</div>
+
         );
       default:
         return null;

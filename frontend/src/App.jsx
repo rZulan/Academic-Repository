@@ -24,9 +24,9 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/library' element={<Library />} />
-              <Route path='/upload' element={<Upload />} />
+              <Route path='/uploadold' element={<Upload />} />
               <Route path='/upload2' element={<Upload2 />} />
-              <Route path='/upload3' element={<Upload3 />} />
+              <Route path='/upload' element={<Upload3 />} />
               <Route path='/document/:id' element={<Document />} />
             </Route>
           </Routes>

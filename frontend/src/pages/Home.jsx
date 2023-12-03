@@ -53,7 +53,7 @@ const Home = () => {
     <>
       <section className='flex flex-col items-center'>
         <div className="text-center mb-20 mt-20">
-          <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Repository</h1>
+          <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Thesis/Capstone Repository</h1>
           <p className="text-2xl">Your Gateway to Academic Excellence – Where Ideas Thrive and Originality Shines!</p>
         </div>
 
