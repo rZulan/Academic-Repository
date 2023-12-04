@@ -17,21 +17,23 @@ const Home = () => {
     console.log(formData);
   };
 
+  const [loading, setLoading] = useState(true); // Add loading state
+  const [featuredDocuments, setFeaturedDocuments] = useState([]);
+
   useEffect(() => {
     const fetchFeaturedDocuments = async () => {
       try {
         const response = await API.get('/library/'); // Replace with the correct endpoint
-        setFeaturedDocuments(response.data);
         setFeaturedDocuments(response.data.slice(0, 6));
+        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error('Error fetching featured documents:', error);
+        setLoading(false); // Set loading to false even on error
       }
     };
-  
+
     fetchFeaturedDocuments();
   }, []);
-  
-  const [featuredDocuments, setFeaturedDocuments] = useState([]);
 
   return (
     <>
@@ -66,16 +68,22 @@ const Home = () => {
       <section className="mt-8 mx-8 lg:mx-32 mb-[100px]">
         <h1 className="text-3xl font-semibold mb-4">Featured Documents</h1>
         <div className="border-t-2 border-gray-300 my-4 mx-3"></div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
-          {featuredDocuments.map((document) => (
-            <Link key={document.id} to={`/document/${document.id}`}>
-              <div className="bg-white p-4 rounded shadow-lg hover:shadow-xl hover:scale-105 transition duration-300">
-                <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
-                <p className="text-gray-600">{document.abstract}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex flex-wrap justify-center">
+            <div className="loader ease-linear rounded-full border-t-4 border-t-[#600414] h-12 w-12 mb-2 animate-spin"></div>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
+            {featuredDocuments.map((document) => (
+              <Link key={document.id} to={`/document/${document.id}`}>
+                <div className="bg-white p-4 rounded shadow-lg hover:shadow-xl hover:scale-105 transition duration-300">
+                  <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
+                  <p className="text-gray-600">{document.abstract}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="mt-8 mx-8 lg:mx-32">
