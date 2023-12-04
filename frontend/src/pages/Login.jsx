@@ -29,21 +29,22 @@ const Login = () => {
 
         <p className="flex items-center justify-center mt-5 mb-2">Use DHVSU account to login:</p>
       
-          <div className="flex items-center justify-center mt-5 mb-2">
-
-
-                {loading ? (
-                  <p>Logging in...</p>
-                ) : (
-                  <GoogleLogin
-                    onSuccess={(credentialResponse) => login(credentialResponse)}
-                    onError={() => {
-                      console.log('Login Failed');
-                    }}
-                  />
-                )}
-
+        <div className="flex items-center justify-center mt-5 mb-2">
+        {loading ? (
+          <div className="flex flex-col items-center">
+            <div className="loader ease-linear rounded-full border-t-4 border-t-[#600414] h-12 w-12 mb-2 animate-spin"></div>
+            <p className="text-gray-600">Logging in...</p>
           </div>
+        ) : (
+          <GoogleLogin
+            onSuccess={(credentialResponse) => login(credentialResponse)}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
+        )}
+      </div>
+
         </div>
       </div>
   );

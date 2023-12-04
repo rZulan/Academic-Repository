@@ -237,7 +237,10 @@ const Library = () => {
           </div>
           <div className="border-t-2 border-gray-300 my-4">
             {loading ? (
-              <p>Loading...</p>
+              <div className="flex flex-col items-center justify-center py-8">
+                <div className="loader ease-linear rounded-full border-t-4 border-t-[#40030d] h-12 w-12 mb-2 animate-spin"></div>
+                <p className="text-gray-600">Loading...</p>
+              </div>
             ) : (
               currentDocuments &&
               currentDocuments.map((document, index) => (
@@ -254,6 +257,7 @@ const Library = () => {
               ))
             )}
           </div>
+
           
           {/* <div className="border-t-2 border-gray-300 my-4">
             {currentDocuments &&
