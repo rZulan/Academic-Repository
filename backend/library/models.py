@@ -82,8 +82,11 @@ class Document(models.Model):
         default=timezone.now().year,
         validators=[MinLengthValidator(limit_value=4)],
     )
+    department = models.CharField(max_length=256)
+    course = models.CharField(max_length=256)
+    authors = models.CharField(max_length=256)
 
-    file = models.FileField(upload_to='documents/')
+    file = models.FileField(upload_to='documents/', null=True)
 
     def __str__(self):
         return self.title
