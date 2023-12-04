@@ -65,7 +65,6 @@ class GoogleLoginView(APIView):
         return response
 
 class UploadDocumentAPIView(APIView):
-    parser_classes = [MultiPartParser, FormParser]
 
     def post(self, request, *args, **kwargs):
         serializer = DocumentSerializer(data=request.data, context={'request': request})

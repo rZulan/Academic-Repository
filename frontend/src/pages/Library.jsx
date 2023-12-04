@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import API from "../utils/API";
 
 const Library = () => {
+  const [loading, setLoading] = useState(true);
+  
   const [documentType, setDocumentType] = useState({
     all: true,
     thesis: false,
@@ -21,12 +23,15 @@ const Library = () => {
 
   const getDocuments = async () => {
     try {
+      setLoading(true); // Set loading to true when starting to fetch data
       const response = await API.get(`/library/`);
       const fetchedDocuments = response.data;
       setDocuments(fetchedDocuments);
-      setAllDocuments(fetchedDocuments); // Update allDocuments state
+      setAllDocuments(fetchedDocuments);
     } catch (error) {
       console.error("Error fetching documents:", error);
+    } finally {
+      setLoading(false); // Set loading to false when data fetching is complete
     }
   };
 
@@ -231,6 +236,26 @@ const Library = () => {
             </button>
           </div>
           <div className="border-t-2 border-gray-300 my-4">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              currentDocuments &&
+              currentDocuments.map((document, index) => (
+                <Link to={`/document/${document.id}`} key={index}>
+                  <div className="mt-6 bg-white p-4 rounded-lg shadow-md hover:scale-105 transition ease-in-out duration-300" key={index}>
+                    <h3 className="text-xl font-semibold mb-2">{document.title}</h3>
+                    <p className="text-gray-700">
+                      <strong>Abstract:</strong> {document.abstract}
+                    </p>
+                    <div className="border-t-2 border-gray-300 my-4"></div>
+                    <p className="text-gray-700"><strong>Author: </strong>John Doe<strong> Year: </strong>{document.school_year} <strong>Department: </strong> CCS <strong>Course:</strong> BS in Computer Science</p>
+                  </div>
+                </Link>
+              ))
+            )}
+          </div>
+          
+          {/* <div className="border-t-2 border-gray-300 my-4">
             {currentDocuments &&
               currentDocuments.map((document, index) => (
                 <Link to={`/document/${document.id}`} key={index}>
@@ -244,7 +269,7 @@ const Library = () => {
                   </div>
                 </Link>
               ))}
-          </div>
+          </div> */}
 
           {/* Pagination */}
           <div className="flex justify-center">
