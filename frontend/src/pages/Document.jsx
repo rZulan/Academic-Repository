@@ -1,44 +1,67 @@
-import React from 'react';
+// DocumentPage.js
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 
-const Document = () => {
-  // Sample document data
-  const documentData = {
-    title: 'Sample Document',
-    abstract: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ...',
-    authors: ['Author 1', 'Author 2'],
-    college: 'College of Sample',
-    course: 'Sample Course',
-    schoolYear: '2023',
+const DocumentPage = () => {
+  const [document, setDocument] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios.get(`http://127.0.0.1:8000/api/document/${id}`)
+      .then(res => {
+        setDocument(res.data);
+      })
+      .catch(error => {
+        console.error("Error fetching document:", error);
+      });
+  }, [id]);
+
+  const handleBackClick = () => {
+    // Use the navigate function to navigate back to the library page
+    navigate("/library");
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-4 border rounded">
-      <h1 className="text-3xl font-semibold mb-4">{documentData.title}</h1>
-
-      <p className="text-gray-600 mb-4">{documentData.abstract}</p>
-
-      <div className="mb-4">
-        <strong>Authors:</strong>
-        <ul className="list-disc pl-4">
-          {documentData.authors.map((author, index) => (
-            <li key={index}>{author}</li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mb-4">
-        <strong>College:</strong> {documentData.college}
-      </div>
-
-      <div className="mb-4">
-        <strong>Course:</strong> {documentData.course}
-      </div>
-
-      <div className="mb-4">
-        <strong>School Year:</strong> {documentData.schoolYear}
-      </div>
+    <div className="main-body bg-gray-100 p-7">
+      {document ? (
+        <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+          {document ? (
+          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-8">
+            <h2 className="text-3xl font-bold mb-4">{document.title}</h2>
+            <p className="text-gray-600 mb-4">{document.abstract}</p>
+            <div className="border-t border-gray-300 my-6"></div>
+            <div className="flex flex-wrap justify-between text-gray-700">
+              <div className="mb-4">
+                <strong className="text-gray-900">Author:</strong> {document.author}
+              </div>
+              <div className="mb-4">
+                <strong className="text-gray-900">Year:</strong> {document.school_year}
+              </div>
+              <div className="mb-4">
+                <strong className="text-gray-900">Department:</strong> {document.department}
+              </div>
+              <div className="mb-4">
+                <strong className="text-gray-900">Course:</strong> {document.course}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+          <button
+            onClick={handleBackClick}
+            className="bg-[#600414] text-white py-3 px-6 rounded hover:bg-[#40030d] transition duration-300 mt-4"
+          >
+            Back to Library
+          </button>
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
 
-export default Document;
+export default DocumentPage;

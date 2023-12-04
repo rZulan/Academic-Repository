@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import API from '../utils/API';
 
 const Home = () => {
   const [formData, setFormData] = useState({
@@ -16,38 +17,21 @@ const Home = () => {
     console.log(formData);
   };
 
-  const featuredDocuments = [
-    {
-      id: 1,
-      title: 'Document Title 1',
-      abstract: 'Abstract 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-    {
-      id: 2,
-      title: 'Document Title 2',
-      abstract: 'Abstract 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-    {
-      id: 3,
-      title: 'Document Title 3',
-      abstract: 'Abstract 3 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-    {
-      id: 4,
-      title: 'Document Title 4',
-      abstract: 'Abstract 4 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-    {
-      id: 5,
-      title: 'Document Title 5',
-      abstract: 'Abstract 5 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-    {
-      id: 6,
-      title: 'Document Title 6',
-      abstract: 'Abstract 6 Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus, eius.',
-    },
-  ];
+  useEffect(() => {
+    const fetchFeaturedDocuments = async () => {
+      try {
+        const response = await API.get('/library/'); // Replace with the correct endpoint
+        setFeaturedDocuments(response.data);
+        setFeaturedDocuments(response.data.slice(0, 6));
+      } catch (error) {
+        console.error('Error fetching featured documents:', error);
+      }
+    };
+  
+    fetchFeaturedDocuments();
+  }, []);
+  
+  const [featuredDocuments, setFeaturedDocuments] = useState([]);
 
   return (
     <>
@@ -84,10 +68,12 @@ const Home = () => {
         <div className="border-t-2 border-gray-300 my-4 mx-3"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
           {featuredDocuments.map((document) => (
-            <div key={document.id} className="bg-white p-4 rounded shadow-lg hover:shadow-xl hover:scale-105 transition duration-300">
-              <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
-              <p className="text-gray-600">{document.abstract}</p>
-            </div>
+            <Link key={document.id} to={`/document/${document.id}`}>
+              <div className="bg-white p-4 rounded shadow-lg hover:shadow-xl hover:scale-105 transition duration-300">
+                <h1 className="text-lg font-semibold mb-2">{document.title}</h1>
+                <p className="text-gray-600">{document.abstract}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
