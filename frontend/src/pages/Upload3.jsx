@@ -14,6 +14,7 @@ const Upload3 = () => {
     authors: '',
     department: '', 
     course: '',
+    year:'',
   });
 
   const handleFileChange = (e) => {
@@ -144,6 +145,35 @@ const Upload3 = () => {
                   onChange={handleInputChange}
                   className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-[#600414]"
                 />
+              <div className="mb-4">
+              <label className="block text-gray-600">Year:</label>
+              <select
+                name="year"
+                value={formData.year}
+                onChange={handleInputChange}
+                className="border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:border-[#600414]"
+              >
+                <option value="">Select Year</option>
+                <option value="2018">
+                    2018
+                </option>
+                <option value="2019">
+                    2019
+                </option>
+                <option value="2020">
+                    2020
+                </option>
+                <option value="2021">
+                    2021
+                </option>
+                <option value="2022">
+                    2022
+                </option>
+                <option value="2023">
+                    2023
+                </option>
+              </select>
+            </div>
               </div>
               <div className="mb-4">
               <label className="block text-gray-600">Department:</label>
@@ -293,75 +323,75 @@ const Upload3 = () => {
         );
       case 2:
         return (
-<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
-  <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
-  <h3 className="text-lg mb-2">AI Score:</h3>
-  <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
-  <button
-    onClick={handleAICheck}
-    className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
-  >
-    AI Check
-  </button>
-  <div className="flex justify-between mt-4">
-    <button
-      onClick={handlePreviousStep}
-      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
-    >
-      Previous
-    </button>
-    <button
-      onClick={handleNextStep}
-      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
-    >
-      Next
-    </button>
-  </div>
-</div>
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+            <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
+            <h3 className="text-lg mb-2">AI Score:</h3>
+            <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
+            <button
+              onClick={handleAICheck}
+              className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+            >
+              AI Check
+            </button>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handlePreviousStep}
+                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNextStep}
+                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
 
         );
       case 3:
         return (
-<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
-  <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
-  <h3 className="text-lg mb-2">Plagiarism Score:</h3>
-  <p className="text-4xl font-bold">{(plagScore * 100).toFixed(2)}%</p>
-  <button
-    onClick={handlePlagiarismCheck}
-    className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
-  >
-    Plagiarism Check
-  </button>
-  <div className="flex justify-between mt-4">
-    <button
-      onClick={handlePreviousStep}
-      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
-    >
-      Previous
-    </button>
-    <button
-      onClick={handleNextStep}
-      className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
-    >
-      Next
-    </button>
-  </div>
-</div>
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+            <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
+            <h3 className="text-lg mb-2">Plagiarism Score:</h3>
+            <p className="text-4xl font-bold">{(plagScore * 100).toFixed(2)}%</p>
+            <button
+              onClick={handlePlagiarismCheck}
+              className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+            >
+              Plagiarism Check
+            </button>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handlePreviousStep}
+                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNextStep}
+                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
 
         );
       case 4:
         return (
-<div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
-  <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
-  <div className="flex justify-center mt-4">
-    <button
-      onClick={handlePreviousStep}
-      className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
-    >
-      Previous
-    </button>
-  </div>
-</div>
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+            <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
+            <div className="flex justify-center mt-4">
+              <button
+                onClick={handlePreviousStep}
+                className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+              >
+                Previous
+              </button>
+            </div>
+          </div>
 
         );
       default:
