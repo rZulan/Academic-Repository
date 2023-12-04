@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -106,3 +107,15 @@ class CleanupView(APIView):
         # response = requests.post(url, json=payload, headers=headers)
         
         return Response({"ConvertedText" : full_text})
+    
+class DocumentView(APIView):
+    def get(self, request, id):
+        
+        print(id)
+        try:
+            user = Document.objects.get(id=id)
+        except Document.DoesNotExist:
+            return Response({"error": "Document not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = DocumentSerializer(instance=user)
+        return Response(serializer.data)
