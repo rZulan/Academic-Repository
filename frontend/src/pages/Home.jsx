@@ -51,7 +51,7 @@ const Home = () => {
 
   return (
     <>
-      <section className='flex flex-col items-center'>
+      <section className='flex flex-col items-center mt-[160px]'>
         <div className="text-center mb-20 mt-20">
           <h1 className="text-5xl font-bold mb-4 text-[#600414]">DHVSU Thesis/Capstone Repository</h1>
           <p className="text-2xl">Your Gateway to Academic Excellence – Where Ideas Thrive and Originality Shines!</p>
@@ -79,7 +79,7 @@ const Home = () => {
         </Link>
       </section>
 
-      <section className="mt-8 mx-8 lg:mx-32">
+      <section className="mt-8 mx-8 lg:mx-32 mb-[100px]">
         <h1 className="text-3xl font-semibold mb-4">Featured Documents</h1>
         <div className="border-t-2 border-gray-300 my-4 mx-3"></div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">

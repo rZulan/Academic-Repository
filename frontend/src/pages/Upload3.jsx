@@ -267,20 +267,18 @@ const Upload3 = () => {
           </form>
     
           <div className="mt-6 p-4 border border-gray-300 rounded-lg shadow-md">
-  <h2 className="text-xl mb-4">Upload Document:</h2>
-  <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
-  <button
-    onClick={handleFileUpload}
-    className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
-  >
-    Upload
-  </button>
-  <p className="my-4 italic text-gray-400">
-    Note: Uploading a document will automatically remove Figures/Images/Tables
-  </p>
-</div>
-
-
+            <h2 className="text-xl mb-4">Upload Document:</h2>
+            <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
+            <button
+              onClick={handleFileUpload}
+              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
+            >
+              Upload
+            </button>
+            <p className="my-4 italic text-gray-400">
+              Note: Uploading a document will automatically remove Figures/Images/Tables
+            </p>
+          </div>
 
           <div className="flex justify-center mt-4">
             <button
