@@ -323,7 +323,7 @@ const Upload3 = () => {
         );
       case 2:
         return (
-          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
             <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
             <h3 className="text-lg mb-2">AI Score:</h3>
             <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
@@ -336,13 +336,13 @@ const Upload3 = () => {
             <div className="flex justify-between mt-4">
               <button
                 onClick={handlePreviousStep}
-                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+                className="bg-white hover:bg-[#ffbc2c] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
               >
                 Previous
               </button>
               <button
                 onClick={handleNextStep}
-                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+                className="bg-white hover:bg-[#600414] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
               >
                 Next
               </button>
@@ -352,7 +352,7 @@ const Upload3 = () => {
         );
       case 3:
         return (
-          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
             <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
             <h3 className="text-lg mb-2">Plagiarism Score:</h3>
             <p className="text-4xl font-bold">{(plagScore * 100).toFixed(2)}%</p>
@@ -365,13 +365,13 @@ const Upload3 = () => {
             <div className="flex justify-between mt-4">
               <button
                 onClick={handlePreviousStep}
-                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+                className="bg-white hover:bg-[#ffbc2c] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
               >
                 Previous
               </button>
               <button
                 onClick={handleNextStep}
-                className="bg-[#1F2933] hover:bg-[#1E3A8A] text-white rounded-md px-4 py-2 transition duration-300"
+                className="bg-white hover:bg-[#600414] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
               >
                 Next
               </button>
@@ -381,12 +381,12 @@ const Upload3 = () => {
         );
       case 4:
         return (
-          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
             <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
             <div className="flex justify-center mt-4">
               <button
                 onClick={handlePreviousStep}
-                className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+                className="bg-white hover:bg-[#600414] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
               >
                 Previous
               </button>
