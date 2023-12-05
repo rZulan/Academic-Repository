@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import API from '../utils/API';
 
 const Home = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     search: '',
   });
@@ -14,9 +15,10 @@ const Home = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // Redirect to the Library page with the search query as a parameter
+    navigate(`/library?search=${formData.search}`);
   };
-
+  
   function truncateText(text, maxLength) {
     if (text.length <= maxLength) {
       return text;
