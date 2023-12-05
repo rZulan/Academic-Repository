@@ -426,18 +426,18 @@ const Upload3 = () => {
                 <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
               </div>
               <div className="flex justify-center mt-4">
+              <button
+                  onClick={handlePreviousStep}
+                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+                >
+                  Previous
+                </button>
+
                 <button
                   onClick={handleSubmit}
                   className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
                 >
                   Submit
-                </button>
-
-                <button
-                  onClick={handlePreviousStep}
-                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
-                >
-                  Previous
                 </button>
               </div>
             </div>

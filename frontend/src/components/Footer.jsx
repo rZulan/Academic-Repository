@@ -41,28 +41,6 @@ const Footer = () => {
             </p>
           </div>
 
-          {/* Footer Section 4: Social Media */}
-          <div className="w-full sm:w-1/2 lg:w-1/4 mb-4">
-            <h2 className="text-xl font-bold mb-4 text-[#fbbf24]">Follow Us</h2>
-            <ul className="list-inline">
-              <li className="list-inline-item">
-                <a className="hover:text-[#fbbf24]" href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-                  Facebook
-                </a>
-              </li>
-              <li className="list-inline-item">
-                <a className="hover:text-[#fbbf24]" href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                  Twitter
-                </a>
-              </li>
-              <li className="list-inline-item">
-                <a className="hover:text-[#fbbf24]" href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
-                  LinkedIn
-                </a>
-              </li>
-              {/* Add more social media links as needed */}
-            </ul>
-          </div>
         </div>
       </div>
     </footer>
