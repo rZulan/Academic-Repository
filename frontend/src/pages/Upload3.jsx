@@ -109,6 +109,32 @@ const Upload3 = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const formDataToSend = new FormData();
+      console.log(formData.title)
+      console.log(formData.abstract)
+      console.log(formData.authors)
+
+
+      formDataToSend.append('title', formData.title);
+      formDataToSend.append('abstract', formData.abstract);
+      formDataToSend.append('authors', formData.authors)
+      formDataToSend.append('department', formData.department)
+      formDataToSend.append('course', formData.course)
+      formDataToSend.append('file', file);
+
+      // Your API endpoint for file upload (replace with your actual endpoint)
+      const response = await API.post('/upload/', formData);
+
+      setConvertedText(response.data.ConvertedText);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   const renderStepContent = () => {
     switch (step) {
       case 1:
@@ -355,7 +381,7 @@ const Upload3 = () => {
           <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
             <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
             <h3 className="text-lg mb-2">Plagiarism Score:</h3>
-            <p className="text-4xl font-bold">{(plagScore * 100).toFixed(2)}%</p>
+            <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
             <button
               onClick={handlePlagiarismCheck}
               className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
@@ -379,21 +405,43 @@ const Upload3 = () => {
           </div>
 
         );
-      case 4:
-        return (
-          <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
-            <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
-            <div className="flex justify-center mt-4">
-              <button
-                onClick={handlePreviousStep}
-                className="bg-white hover:bg-[#600414] text-black hover:text-white rounded-md px-4 py-2 transition duration-300"
-              >
-                Previous
-              </button>
-            </div>
-          </div>
+        case 4:
+          return (
+            <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#4F2D7F] to-[#623AA2] rounded-lg shadow-lg w-[65%] text-white">
+              <h1 className="text-3xl mb-4 font-semibold">Summary</h1>
+              <div className="mb-4">
+                <h3 className="text-lg">Information:</h3>
+                <p>Title: {formData.title}</p>
+                <p>Abstract: {formData.abstract}</p>
+                <p>Authors: {formData.authors}</p>
+                <p>Department: {formData.department}</p>
+                <p>Course: {formData.course}</p>
+              </div>
+              <div className="mb-4">
+                <h3 className="text-lg">AI Score:</h3>
+                <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
+              </div>
+              <div className="mb-4">
+                <h3 className="text-lg">Plagiarism Score:</h3>
+                <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
+              </div>
+              <div className="flex justify-center mt-4">
+                <button
+                  onClick={handleSubmit}
+                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+                >
+                  Submit
+                </button>
 
-        );
+                <button
+                  onClick={handlePreviousStep}
+                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
+                >
+                  Previous
+                </button>
+              </div>
+            </div>
+          );
       default:
         return null;
     }
