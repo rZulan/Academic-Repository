@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import API from '../utils/API';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Upload3 = () => {
   const [step, setStep] = useState(1);
@@ -18,7 +20,9 @@ const Upload3 = () => {
   });
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    // Handle file selection and set the 'file' state
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   const handleFileUpload = async (e) => {
@@ -32,10 +36,30 @@ const Upload3 = () => {
       const response = await API.post('/cleanup/', formData);
 
       setConvertedText(response.data.ConvertedText);
-    } catch (e) {
-      console.log(e);
+
+      // Show a success toast message
+      toast.success('File uploaded successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (error) {
+      console.log(error);
+      // Show an error toast message if the upload fails
+      toast.error('File upload failed!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
+
 
   const handleAICheck = async (e) => {
     e.preventDefault();
@@ -114,26 +138,41 @@ const Upload3 = () => {
 
     try {
       const formDataToSend = new FormData();
-      console.log(formData.title)
-      console.log(formData.abstract)
-      console.log(formData.authors)
-
 
       formDataToSend.append('title', formData.title);
       formDataToSend.append('abstract', formData.abstract);
-      formDataToSend.append('authors', formData.authors)
-      formDataToSend.append('department', formData.department)
-      formDataToSend.append('course', formData.course)
+      formDataToSend.append('authors', formData.authors);
+      formDataToSend.append('department', formData.department);
+      formDataToSend.append('course', formData.course);
       formDataToSend.append('file', file);
 
       // Your API endpoint for file upload (replace with your actual endpoint)
-      const response = await API.post('/upload/', formData);
+      const response = await API.post('/upload/', formDataToSend);
 
       setConvertedText(response.data.ConvertedText);
+
+      // Show a success toast message
+      toast.success('Document uploaded successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } catch (e) {
       console.log(e);
+      // Show an error toast message if the submission fails
+      toast.error('Failed to upload document!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
-  }
+  };
 
   const renderStepContent = () => {
     switch (step) {
@@ -326,11 +365,14 @@ const Upload3 = () => {
             <h2 className="text-xl mb-4">Upload Document:</h2>
             <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
             <button
-              onClick={handleFileUpload}
-              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
-            >
-              Upload
-            </button>
+      onClick={handleFileUpload}
+      className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
+    >
+      Upload
+    </button>
+    {/* Add the ToastContainer to your component */}
+    <ToastContainer />
+
             <p className="my-4 italic text-gray-400">
               Note: Uploading a document will automatically remove Figures/Images/Tables
             </p>
@@ -439,6 +481,7 @@ const Upload3 = () => {
                 >
                   Submit
                 </button>
+                <ToastContainer />
               </div>
             </div>
           );
