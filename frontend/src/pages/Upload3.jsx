@@ -373,7 +373,7 @@ const Upload3 = () => {
           <div className="mt-6 p-4 border border-gray-300 rounded-lg shadow-md">
             <h2 className="text-xl mb-4">Upload Document:</h2>
             <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
-            {loading && <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-12 w-12 mb-4 animate-spin"></div>}
+            
             <button
       onClick={handleFileUpload}
       className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
@@ -405,7 +405,7 @@ const Upload3 = () => {
             <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
             <h3 className="text-lg mb-2">AI Score:</h3>
             <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
-            {loading && <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-12 w-12 mb-4 animate-spin"></div>}
+            
             <button
               onClick={handleAICheck}
               className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
@@ -435,7 +435,7 @@ const Upload3 = () => {
             <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
             <h3 className="text-lg mb-2">Plagiarism Score:</h3>
             <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
-            {loading && <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-12 w-12 mb-4 animate-spin"></div>}
+            
             <button
               onClick={handlePlagiarismCheck}
               className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
@@ -480,7 +480,7 @@ const Upload3 = () => {
                 <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
               </div>
               <div className="flex justify-center mt-4">
-                {loading && <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-12 w-12 mb-4 animate-spin"></div>}
+                
               <button
                   onClick={handlePreviousStep}
                   className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
