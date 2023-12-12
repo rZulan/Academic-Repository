@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import API from '../utils/API';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Upload3 = () => {
   const [step, setStep] = useState(1);
@@ -16,13 +18,17 @@ const Upload3 = () => {
     course: '',
     year:'',
   });
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+    // Handle file selection and set the 'file' state
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
   };
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formData = new FormData();
@@ -32,13 +38,34 @@ const Upload3 = () => {
       const response = await API.post('/cleanup/', formData);
 
       setConvertedText(response.data.ConvertedText);
-    } catch (e) {
-      console.log(e);
+
+      // Show a success toast message
+      toast.success('File uploaded successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } catch (error) {
+      console.log(error);
+      // Show an error toast message if the upload fails
+      toast.error('File upload failed!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 
+
   const handleAICheck = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const aiFormData = new FormData();
@@ -53,7 +80,7 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmJhZWQyMGItYjZiMy00YmFmLWFlYWItMjZhNDk3ZTFlYWE3IiwidHlwZSI6InNhbmRib3hfYXBpX3Rva2VuIn0.65eR0XPWFINLsbxTXFPupTWk7C61l_E0FcZlyi28ZQE',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjdkNDVlMGItYmQ5NC00ZTA3LWE3MjgtY2U5YWNiZWE3NWJlIiwidHlwZSI6ImFwaV90b2tlbiJ9.GIboksSfvwJPWodJDUsopW1-mhhcFPZEmXampXAI03A',
           },
         }
       );
@@ -63,11 +90,14 @@ const Upload3 = () => {
       console.log(aiResponse.data.sapling.ai_score)
     } catch (error) {
       console.error('Error submitting:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handlePlagiarismCheck = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const aiFormData = new FormData();
@@ -83,7 +113,7 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMmJhZWQyMGItYjZiMy00YmFmLWFlYWItMjZhNDk3ZTFlYWE3IiwidHlwZSI6InNhbmRib3hfYXBpX3Rva2VuIn0.65eR0XPWFINLsbxTXFPupTWk7C61l_E0FcZlyi28ZQE',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjdkNDVlMGItYmQ5NC00ZTA3LWE3MjgtY2U5YWNiZWE3NWJlIiwidHlwZSI6ImFwaV90b2tlbiJ9.GIboksSfvwJPWodJDUsopW1-mhhcFPZEmXampXAI03A',
           },
         }
       );
@@ -93,6 +123,8 @@ const Upload3 = () => {
 
     } catch (error) {
       console.error('Error submitting:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -111,29 +143,45 @@ const Upload3 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const formDataToSend = new FormData();
-      console.log(formData.title)
-      console.log(formData.abstract)
-      console.log(formData.authors)
-
 
       formDataToSend.append('title', formData.title);
       formDataToSend.append('abstract', formData.abstract);
-      formDataToSend.append('authors', formData.authors)
-      formDataToSend.append('department', formData.department)
-      formDataToSend.append('course', formData.course)
+      formDataToSend.append('authors', formData.authors);
+      formDataToSend.append('department', formData.department);
+      formDataToSend.append('course', formData.course);
       formDataToSend.append('file', file);
 
       // Your API endpoint for file upload (replace with your actual endpoint)
-      const response = await API.post('/upload/', formData);
+      const response = await API.post('/upload/', formDataToSend);
 
       setConvertedText(response.data.ConvertedText);
+
+      // Show a success toast message
+      toast.success('Document uploaded successfully!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     } catch (e) {
       console.log(e);
+      // Show an error toast message if the submission fails
+      toast.error('Failed to upload document!', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
-  }
+  };
 
   const renderStepContent = () => {
     switch (step) {
@@ -325,12 +373,16 @@ const Upload3 = () => {
           <div className="mt-6 p-4 border border-gray-300 rounded-lg shadow-md">
             <h2 className="text-xl mb-4">Upload Document:</h2>
             <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
+            
             <button
-              onClick={handleFileUpload}
-              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
-            >
-              Upload
-            </button>
+      onClick={handleFileUpload}
+      className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
+    >
+      Upload
+    </button>
+    {/* Add the ToastContainer to your component */}
+    <ToastContainer />
+
             <p className="my-4 italic text-gray-400">
               Note: Uploading a document will automatically remove Figures/Images/Tables
             </p>
@@ -353,6 +405,7 @@ const Upload3 = () => {
             <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
             <h3 className="text-lg mb-2">AI Score:</h3>
             <p className="text-4xl font-bold">{(aiScore * 100).toFixed(2)}%</p>
+            
             <button
               onClick={handleAICheck}
               className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
@@ -382,6 +435,7 @@ const Upload3 = () => {
             <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
             <h3 className="text-lg mb-2">Plagiarism Score:</h3>
             <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
+            
             <button
               onClick={handlePlagiarismCheck}
               className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
@@ -426,6 +480,7 @@ const Upload3 = () => {
                 <p className="text-4xl font-bold">{(plagScore).toFixed(2)}%</p>
               </div>
               <div className="flex justify-center mt-4">
+                
               <button
                   onClick={handlePreviousStep}
                   className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 transition duration-300"
@@ -439,6 +494,7 @@ const Upload3 = () => {
                 >
                   Submit
                 </button>
+                <ToastContainer />
               </div>
             </div>
           );
@@ -447,7 +503,11 @@ const Upload3 = () => {
     }
   };
 
-  return <div>{renderStepContent()}</div>;
+  return (
+    <div>
+      {renderStepContent()}
+    </div>
+  );
 };
 
 export default Upload3;
