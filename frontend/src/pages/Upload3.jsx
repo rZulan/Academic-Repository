@@ -22,38 +22,40 @@ const Upload3 = () => {
   });
   const [loading, setLoading] = useState(false);
 
-  const getAICategorization = (score) => {
-    if (score < 20) {
+  const getAICategorization = () => {
+    if (aiScore*100 < 20) {
+      console.log("My AI Score")
       // setAICategory('Very unlikely to be AI-generated')
-      return "Very unlikely to be AI-generated"
-    } else if (score >= 20 && score < 40) {
+      setAICategory("Very unlikely to be AI-generated")
+    } else if (aiScore*100 >= 20 && aiScore*100 < 40) {
       // setAICategory('Unlikely to be AI-generated')
-      return "Unlikely to be AI-generated"
-    } else if (score >= 40 && score < 60) {
+      setAICategory("Unlikely to be AI-generated")
+    } else if (aiScore*100 >= 40 && aiScore*100 < 60) {
       // setAICategory('Unclear if AI-generated')
-      return "Unclear if AI-generated"
-    } else if (score >= 60 && score < 80) {
+      setAICategory("Unclear if AI-generated")
+    } else if (aiScore*100 >= 60 && aiScore*100 < 80) {
       // setAICategory('Possibly AI-generated')
-      return "Possibly AI-generated"
+      setAICategory("Possibly AI-generated")
     } else {
       // setAICategory('Likely to be AI-generated')
-      return "Likely AI-generated"
+      setAICategory("Likely AI-generated")
     }
   };
   
-  const getPlagiarismCategorization = (score) => {
-    if (score <= 15 && score > 10) {
+  const getPlagiarismCategorization = () => {
+    console.log("My Plag Score: ", plagScore)
+    if (plagScore <= 15 && plagScore > 10) {
       // setPlagCategory('Accidental plagiarism')
-      return "Accidental plagiarism"
-    } else if (score <= 10 && score > 0) {
+      setPlagCategory("Accidental plagiarism")
+    } else if (plagScore <= 10 && plagScore > 0) {
       // setPlagCategory('Accidental plagiarism')
-      return "Little to no plagiarism"
-    } else if (score <= 0) {
+      setPlagCategory("Little to no plagiarism")
+    } else if (plagScore <= 0) {
       // setPlagCategory('Accidental plagiarism')
-      return "No Plagiarism"
+      setPlagCategory("No Plagiarism")
     } else {
       // setPlagCategory('Significant amount of plagiarized content')
-      return "Significant amount of plagiarized content"
+      setPlagCategory("Significant amount of plagiarized content")
     }
   };
 
@@ -85,6 +87,8 @@ const Upload3 = () => {
         pauseOnHover: true,
         draggable: true,
       });
+
+      setLoading(false)
     } catch (error) {
       console.log(error);
       // Show an error toast message if the upload fails
@@ -117,18 +121,21 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjdkNDVlMGItYmQ5NC00ZTA3LWE3MjgtY2U5YWNiZWE3NWJlIiwidHlwZSI6ImFwaV90b2tlbiJ9.GIboksSfvwJPWodJDUsopW1-mhhcFPZEmXampXAI03A',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzA3ZDVjZTktZTk5NS00NWM3LTllYjUtNzQwMDZiMzllYjE0IiwidHlwZSI6ImFwaV90b2tlbiJ9.uSM6rzZwznDl4pOfgZOA-0TdFn44LlBzVGJV30X7nns',
+            
           },
         }
       );
 
       console.log('AI Detection Score:', aiResponse.data);
       setAIScore(aiResponse.data.sapling.ai_score)
+      
       console.log(aiResponse.data.sapling.ai_score)
     } catch (error) {
       console.error('Error submitting:', error);
     } finally {
       setLoading(false);
+      getAICategorization()
     }
   };
 
@@ -150,18 +157,19 @@ const Upload3 = () => {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZjdkNDVlMGItYmQ5NC00ZTA3LWE3MjgtY2U5YWNiZWE3NWJlIiwidHlwZSI6ImFwaV90b2tlbiJ9.GIboksSfvwJPWodJDUsopW1-mhhcFPZEmXampXAI03A',
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiYzA3ZDVjZTktZTk5NS00NWM3LTllYjUtNzQwMDZiMzllYjE0IiwidHlwZSI6ImFwaV90b2tlbiJ9.uSM6rzZwznDl4pOfgZOA-0TdFn44LlBzVGJV30X7nns',
           },
         }
       );
 
       console.log('Plagiarism Detection Score:', plagiaResponse.data);
       setPlagScore(plagiaResponse.data.winstonai.plagia_score)
-
+      
     } catch (error) {
       console.error('Error submitting:', error);
     } finally {
       setLoading(false);
+      getPlagiarismCategorization()
     }
   };
 
@@ -411,12 +419,18 @@ const Upload3 = () => {
             <h2 className="text-xl mb-4">Upload Document:</h2>
             <input type="file" id="fileinput" onChange={handleFileChange} className="mb-2" />
             
+          <div className="flex">
+            { loading &&
+              <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-10 w-10 mr-4 animate-spin"></div>
+            }
+            
             <button
-      onClick={handleFileUpload}
-      className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
-    >
-      Upload
-    </button>
+              onClick={handleFileUpload}
+              className="bg-[#600414] text-white rounded-md px-4 py-2 transition duration-300 mt-2"
+              >
+              Upload
+            </button>
+          </div>
     {/* Add the ToastContainer to your component */}
     <ToastContainer />
 
@@ -442,14 +456,21 @@ const Upload3 = () => {
               <h1 className="text-3xl mb-4 font-semibold">Step 2</h1>
               <h3 className="text-lg mb-2">AI Score:</h3>
               <p className={`text-4xl font-bold`}>{(aiScore * 100).toFixed(2)}%</p>
-              <p className={`text-2xl`}>{getAICategorization(aiScore)}</p>
+              <p className={`text-2xl`}>{AICategory}</p>
         
-              <button
-                onClick={handleAICheck}
-                className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
-              >
-                AI Check
-              </button>
+        
+              <div className="flex">
+                { loading &&
+                    <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-10 w-10 mr-4 animate-spin"></div>
+                }
+          
+                <button
+                  onClick={handleAICheck}
+                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+                  >
+                  AI Check
+                </button>
+                </div>
               <div className="flex justify-between mt-4">
                 <button
                   onClick={handlePreviousStep}
@@ -472,15 +493,22 @@ const Upload3 = () => {
             <div className="container mx-auto my-10 p-6 bg-gradient-to-r from-[#600414] to-[#ffbc2c] rounded-lg shadow-lg w-[65%] text-white">
               <h1 className="text-3xl mb-4 font-semibold">Step 3</h1>
               <h3 className="text-lg mb-2">Plagiarism Score:</h3>
-              <p className={`text-4xl font-bold ${getPlagiarismCategorization(plagScore)}`}>{(plagScore).toFixed(2)}%</p>
-              <p className={`text-2xl`}>{getPlagiarismCategorization(plagScore)}</p>
+              <p className={`text-4xl font-bold`}>{(plagScore).toFixed(2)}%</p>
+              <p className={`text-2xl`}>{plagCategory}</p>
         
-              <button
-                onClick={handlePlagiarismCheck}
-                className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
-              >
-                Plagiarism Check
-              </button>
+        
+              <div className="flex">
+                { loading &&
+                  <div className="loader ease-linear rounded-full border-4 border-t-[#FF9A8B] h-10 w-10 mr-4 animate-spin"></div>
+                }
+    
+                <button
+                  onClick={handlePlagiarismCheck}
+                  className="bg-[#FF4D00] hover:bg-[#E53E3E] text-white rounded-md px-4 py-2 mt-4 transition duration-300"
+                  >
+                  Plagiarism Check
+                </button>
+                </div>
               <div className="flex justify-between mt-4">
                 <button
                   onClick={handlePreviousStep}
